@@ -4,6 +4,7 @@ q1rust/target/
 # Ignore Cargo files
 q1rust/Cargo.lock
 q1rust/.cargo/
+Cargo.lock
 
 # Ignore IDE and editor files
 */.vscode/
