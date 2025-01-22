@@ -1,0 +1,27 @@
+# Ignore Rust build artifacts
+q1rust/target/
+
+# Ignore Cargo files
+q1rust/Cargo.lock
+q1rust/.cargo/
+
+# Ignore IDE and editor files
+*/.vscode/
+*/.idea/
+*.iml
+*.ipr
+*.iws
+
+# Ignore operating system files
+.DS_Store
+Thumbs.db
+
+# Ignore other files
+*.bak
+*.tmp
+*.log
+*.pid
+*.seed
+*.rs.bk
+*.rs~
+*.rs.swp
