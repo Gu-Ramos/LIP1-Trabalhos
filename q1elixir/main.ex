@@ -1,59 +1,77 @@
-defmodule TreeTraversal do
-  @scale 30
+defmodule BTreeNode do
+  defstruct id: "", val: 0, right: nil, left: nil, x: 0.0, y: 0.0
 
-  def depth_first(tree, level, left_lim, root_x \\ nil, right_lim \\ nil) do
+  def calculate_positions(tree, level, scale, left_limit) do
+    # O y do nó sempre vai ser dependente apenas do nível dele e da escala desejada.
+    tree = %{tree | y: scale * level}
+
     case tree do
-      %{left: nil, right: nil, val: val} ->
-        {val, root_x, right_lim, left_lim}
+      # Caso onde o nó não tem filhos
+      %{left: nil, right: nil} ->
+        {%{tree | x: left_limit}, left_limit}
 
-      %{left: left, right: nil, val: val} ->
-        depth_first(left, level + 1, left_lim, root_x, right_lim)
+      # Caso onde o nó só tem o filho esquerdo
+      %{left: left_child, right: nil} ->
+        # calcula a posição do filho esquerdo
+        {left_child, right_limit} = calculate_positions(left_child, level + 1, scale, left_limit)
+        # como ele só tem um filho, a posição X dele vai ser a mesma do filho dele. (isto é, ele vai estar diretamente acima do filho dele.)
+        {%{tree | left: left_child, x: left_child.x}, right_limit}
 
-      %{left: nil, right: right, val: val} ->
-        depth_first(right, level + 1, left_lim, root_x, right_lim)
+      # Caso onde o nó só tem o filho direito
+      %{left: nil, right: right_child} ->
+        # mesma lógica do caso acima
+        {right_child, right_limit} = calculate_positions(right_child, level + 1, scale, left_limit)
+        {%{tree | right: right_child, x: right_child.x}, right_limit}
 
-      %{left: left, right: right, val: val} ->
-        {l_root_x, l_right_lim} = depth_first(left, level + 1, left_lim, nil, nil)
-        {r_root_x, r_left_lim} = depth_first(right, level + 1, nil, nil, nil)
-
-        r_left_lim = l_right_lim + @scale
-        root_x = div(l_root_x + r_root_x, 2)
-
-        {val, root_x, right_lim, left_lim}
+      # Caso onde o nó tem os dois filhos
+      %{left: left_child, right: right_child} ->
+        # calcula as posições dos dois filhos
+        {left_child, lchild_right_limit} = calculate_positions(left_child, level + 1, scale, left_limit)
+        {right_child, rchild_right_limit} = calculate_positions(right_child, level + 1, scale, lchild_right_limit + scale)
+        # o nó vai estar no meio dos dois filhos
+        {%{tree | left: left_child, right: right_child, x: (left_child.x + right_child.x) / 2.0}, rchild_right_limit}
     end
+  end
+
+  def print_tree(tree, level \\ 0) do
+    # nível -> id -> valor -> coordenada x -> coordenada
+    IO.puts(String.duplicate("  ", level) <> "#{tree.id} (#{tree.val}) - x: #{tree.x}, y: #{tree.y}")
+
+    if tree.left != nil do print_tree(tree.left, level + 1) end
+    if tree.right != nil do print_tree(tree.right, level + 1) end
   end
 end
 
 defmodule Main do
-  def run do
-    # Create the tree
-    tree = %{
+  def main do
+    # 1. cria árvore teste
+    tree = %BTreeNode{
       id: "a", val: 10,
-      left: %{
+      left: %BTreeNode{
         id: "b", val: 5,
         left: nil, right: nil,
         x: 0.0, y: 0.0
       },
-      right: %{
+      right: %BTreeNode{
         id: "c", val: 15,
         left: nil,
-        right: %{
+        right: %BTreeNode{
           id: "d", val: 20,
-          left: %{
+          left: %BTreeNode{
             id: "e", val: 18,
-            left: %{
+            left: %BTreeNode{
               id: "g", val: 17,
               left: nil, right: nil,
               x: 0.0, y: 0.0
             },
-            right: %{
+            right: %BTreeNode{
               id: "h", val: 19,
               left: nil, right: nil,
               x: 0.0, y: 0.0
             },
             x: 0.0, y: 0.0
           },
-          right: %{
+          right: %BTreeNode{
             id: "f", val: 25,
             left: nil, right: nil,
             x: 0.0, y: 0.0
@@ -65,11 +83,14 @@ defmodule Main do
       x: 0.0, y: 0.0
     }
 
-    # Call the depth_first function
-    result = TreeTraversal.depth_first(tree, 0, nil)
-    IO.inspect(result)
+    # 2. calcula as posições etc
+    {mod_tree, _} = BTreeNode.calculate_positions(tree, 0, 30, 0)
+
+    # 3. printa
+    BTreeNode.print_tree(mod_tree, 0)
+
+    # IO.inspect(mod_tree)
   end
 end
 
-# To run the main function
-Main.run()
+Main.main()
