@@ -1,0 +1,11 @@
+prog(all_tokens ;(
+    assign(x 10) ;(
+        if(>(x 5) write(x) write(0)) ;(
+            while(<(x 10) assign(x +(x 1))) ;(
+                read(y) write(*(x y)))))))
+
+prog(all_tokens ;(
+    assign(x 10) ;(
+        if(>(x 5) write(x) write(0)) ;(
+            while(<(x 10) assign(x +(x 1))) ;(
+                read(y) write(*(x y)))))))
