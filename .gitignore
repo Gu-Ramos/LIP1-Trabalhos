@@ -1,9 +1,9 @@
 # Ignore Rust build artifacts
-q1rust/target/
+**/target/
 
 # Ignore Cargo files
-q1rust/Cargo.lock
-q1rust/.cargo/
+**/Cargo.lock
+**/.cargo/
 Cargo.lock
 
 # Ignore IDE and editor files
