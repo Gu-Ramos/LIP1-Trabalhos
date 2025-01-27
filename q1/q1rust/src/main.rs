@@ -186,7 +186,7 @@ fn main() {
 
     // calcula as posições dos nós
     let scale = 30.0;
-    let (tree, _) = calculate_positions(tree, 0, scale, -100.0);
+    let (tree, _) = calculate_positions(tree, 0, scale, 0.0);
 
     // printa a árvore no terminal
     print_tree(&tree, 0);

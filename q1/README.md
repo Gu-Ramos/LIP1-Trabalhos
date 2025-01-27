@@ -1,4 +1,4 @@
-# LIP1-Trabalhos
+# LIP1 Trabalho 1
 Dupla: Gustavo Andrade Ramos - 558279 e Maria Luiza Felipe Carolino - 552655
 O trabalho foi feito em ambos Rust e Elixir para quesitos de comparação e aprendizado. \
 As duas versões seguem o paradigma de programação funcional. \
