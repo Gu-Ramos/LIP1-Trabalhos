@@ -1,3 +1,6 @@
+// Dupla:
+// Maria Luiza Felipe Carolino - 552655
+// Gustavo Andrade Ramos - 558279
 use raylib::prelude::*;
 
 #[allow(dead_code)]
@@ -11,7 +14,8 @@ struct BTreeNode<'a> {
     y: f32, // Posição x,y do vértice (para quesito de representação gráfica)
 }
 
-/// Calcula as posições dos nós recursivamente. Retorna a posição x de um nó e o limite direito dele (o X do filho/neto/etc dele mais à direita)
+/// Calcula as posições dos nós recursivamente. Retorna um novo nó com a posição x,y e seus filhos atualizados
+/// e o limite direito dele (o X do filho/neto/etc dele mais à direita)
 /// Essa função tenta ser estritamente funcional, apesar de rust não ser bem uma linguagem funcional.
 fn calculate_positions(
     tree: BTreeNode,

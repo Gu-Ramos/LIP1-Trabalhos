@@ -1,3 +1,6 @@
+// Dupla:
+// Maria Luiza Felipe Carolino - 552655
+// Gustavo Andrade Ramos - 558279
 #[allow(dead_code)]
 #[derive(Clone, PartialEq, Debug)]
 pub enum Token {

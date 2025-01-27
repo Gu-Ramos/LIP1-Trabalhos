@@ -1,3 +1,6 @@
+# Dupla:
+# Maria Luiza Felipe Carolino - 552655
+# Gustavo Andrade Ramos - 558279
 defmodule Parser do
   def into_str(token) do
     case token do

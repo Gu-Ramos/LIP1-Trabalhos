@@ -1,3 +1,6 @@
+// Dupla:
+// Maria Luiza Felipe Carolino - 552655
+// Gustavo Andrade Ramos - 558279
 mod parser;
 use parser::*;
 
